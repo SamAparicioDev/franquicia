@@ -1,0 +1,27 @@
+services:
+  java:
+    build:
+      context:
+        .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    env_file:
+      - env-dev.env
+
+    depends_on:
+      - db
+  db:
+    image: bitnami/postgresql
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRESQL_DATABASE: franquicia
+      POSTGRESQL_USER: securityUser
+      POSTGRESQL_PASSWORD: securityPassword
+    volumes:
+      - postgresql:/data/db
+
+
+volumes:
+  postgresql:
